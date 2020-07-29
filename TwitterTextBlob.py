@@ -6,10 +6,15 @@ Created on Fri Jul 10 21:27:51 2020
 
 In this program we will use WordBlob to classify tweets as rasist or not 
 
+https://www.analyticsvidhya.com/blog/2018/02/natural-language-processing-for-beginners-using-textblob/
+
 """
 
 import pandas as pd
+import numpy as np
+from matplotlib import pyplot as plt
 from gensim.parsing import remove_stopwords
+import gensim
 import re
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import f1_score
@@ -33,7 +38,7 @@ def clean_data(text):
 
 
 # *************************  read training data *******************************
-df = pd.read_csv('.//data//train_tweets.csv')
+df = pd.read_csv('.//data//train_E6oV3lV.csv')
 print(df.head())
 
 df.drop('id', axis=1, inplace=True)
@@ -81,6 +86,9 @@ classifier = classifiers.DecisionTreeClassifier(training_corpus)
 print("accuracy=", classifier.accuracy(test_corpus))
 
 
+pred = classifier.classify("I am happy")
+print(pred)
+
 predictions = []
 for tweet in tweets_test:
     pred = classifier.classify(tweet)
@@ -88,4 +96,4 @@ for tweet in tweets_test:
     
 print("F1 score=" , f1_score(labels_test,predictions))
 
-# we get F1 score=0.4662576687116564 for 5000 docs
+# we get F1 score= 0.3870967741935484 for 1000 docs and 0.4662576687116564 for 5000 docs
