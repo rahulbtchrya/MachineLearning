@@ -12,3 +12,5 @@ TwitterSpacy.py - This code demonstrates the use of Spacy's built-in text classi
 TwitterSpacyVec.py - This code uses a combination of Spacy's document vectors and XGBoost for classification of tweets. The vectors are obtained from Spacy's large english model "en_core_web_lg" 
 
 FoodRecognition.py - This code uses Google's Inception V3 pre-trained model to classify images of food items.
+
+DimentionalityReduction.py - In this code we use common dimentionality reduction techniques on the auto-insurance dataset. We start with data vizualization and cleaning. Then we perform imputaion of missing values followed by normalization. Then we reduce our features using statictical techniques, like removing highly correlated features, removing variables having very low logistic regression coefficients, and finally implementing the random-forest classifier to determine the top 10 most important features.
