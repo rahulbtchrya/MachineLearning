@@ -6,22 +6,16 @@ Created on Fri Jul 10 21:27:51 2020
 
 In this program we will use WordBlob to classify tweets as rasist or not 
 
-https://www.analyticsvidhya.com/blog/2018/02/natural-language-processing-for-beginners-using-textblob/
-
 """
 
 import pandas as pd
-import numpy as np
-from matplotlib import pyplot as plt
 from gensim.parsing import remove_stopwords
-import gensim
 import re
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import f1_score
+from sklearn.metrics import f1_score,roc_auc_score
 
-from textblob import TextBlob, Word
 from textblob import classifiers
-import random
+
 
 def clean_data(text):    
     text = re.sub('@[\w]*', '', text)   # remove @user
@@ -56,20 +50,6 @@ tweets = tweets.apply(lambda x : clean_data(x))
 tweets = tweets.tolist()
 labels = labels.tolist()
 
-#******************************************************************************
-# lets try to find out what a summary of the tweets. For that, we would pick 
-# some tweets and find out the nouns in them
-
-blob = TextBlob("".join(tweets))
-nouns = []
-for word,tag in blob.tags:
-    if tag == 'NN':
-        nouns.append(word)
-print("This text is about:")
-for item in random.sample(nouns,5):
-    word = Word(item)
-    print(word)
-
 
 # *****************************************************************************
 tweets_train, tweets_test, labels_train, labels_test = train_test_split(tweets, labels, test_size=0.3, random_state=100,
@@ -83,17 +63,12 @@ test_corpus = list(zip(tweets_test,labels_test))
 print("Training classifier......")
 classifier = classifiers.DecisionTreeClassifier(training_corpus)
 
-print("accuracy=", classifier.accuracy(test_corpus))
-
-
-pred = classifier.classify("I am happy")
-print(pred)
-
 predictions = []
 for tweet in tweets_test:
     pred = classifier.classify(tweet)
     predictions.append(pred)
     
 print("F1 score=" , f1_score(labels_test,predictions))
+print("ROC AUC score = ", roc_auc_score(labels_test,predictions))
 
-# we get F1 score= 0.3870967741935484 for 1000 docs and 0.4662576687116564 for 5000 docs
+# we get F1 score=0.4662576687116564

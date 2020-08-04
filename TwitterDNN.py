@@ -23,7 +23,7 @@ from tensorflow.keras.preprocessing.sequence import pad_sequences
 import tensorflow_datasets as tfds
 
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import f1_score
+from sklearn.metrics import f1_score, roc_auc_score
 
 from nltk.stem import WordNetLemmatizer
 
@@ -270,6 +270,7 @@ preds = model.predict(x=sentences_test_sub)
 pred_labels = [1 if pred>0.5 else 0 for pred in preds]
 
 print("F1 score= ", f1_score(label_test, pred_labels))
+print("ROC AUC score = ", roc_auc_score(label_test, pred_labels))
 
 # we get an f1 score of about 0.40
 

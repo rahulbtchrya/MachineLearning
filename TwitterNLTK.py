@@ -26,7 +26,7 @@ from tqdm import tqdm
 tqdm.pandas(desc="progress-bar") 
 
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import f1_score
+from sklearn.metrics import f1_score, roc_auc_score
 from xgboost.sklearn import XGBClassifier
 
 
@@ -169,7 +169,8 @@ xgb1 = XGBClassifier(max_depth=6, n_estimators=1000, scale_pos_weight=SCALE_FACT
 print("Training w2v....")                
 xgb1.fit(wordvec_df_train, label_train)
 print("Score=", xgb1.score(wordvec_df_test, label_test))
-print("F1 score=", f1_score(label_test, xgb1.predict(wordvec_df_test)))
-
+pred_labels = xgb_model.predict(wordvec_df_test)
+print("F1 score=", f1_score(label_test, pred_labels))
+print("ROC AUC score = ", roc_auc_score(label_test, pred_labels))
 
 # we get an f1 score of 0.68

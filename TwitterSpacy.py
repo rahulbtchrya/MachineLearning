@@ -14,7 +14,7 @@ from gensim.parsing import remove_stopwords
 import spacy
 from spacy.util import minibatch
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import f1_score
+from sklearn.metrics import f1_score,roc_auc_score
 import random
 
 
@@ -121,3 +121,5 @@ print("Accuracy=", accuracy)
 print("F1 score=", f1_score(predicted_clases,labels_test))
 
 # we get an f1 score of arroud 0.66
+
+print("ROC AUC score = ", roc_auc_score(labels_test, predicted_clases))

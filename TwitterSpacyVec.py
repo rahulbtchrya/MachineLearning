@@ -11,7 +11,7 @@ import re
 from gensim.parsing import remove_stopwords
 import spacy
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import f1_score
+from sklearn.metrics import f1_score, roc_auc_score
 import numpy as np
 from xgboost.sklearn import XGBClassifier
 
@@ -82,3 +82,4 @@ print("f1 score=", f1_score(preds, y_test))
 
 # we get an f1 score of arroud 0.64
     
+print("ROC AUC score = ", roc_auc_score(y_test, preds))
